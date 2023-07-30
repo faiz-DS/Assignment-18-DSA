@@ -1,0 +1,29 @@
+def find_min_arrows(points):
+    if not points:
+        return 0
+
+    points.sort(key=lambda x: x[1])  # Sort balloons based on end points (xend)
+    
+    min_arrows = 1  # Initialize the minimum number of arrows
+    end_point = points[0][1]  # Initialize the rightmost end point
+    
+    for xstart, xend in points:
+        if xstart > end_point:
+            # The current balloon is not overlapping with the previous ones,
+            # so we need another arrow to burst it
+            min_arrows += 1
+            end_point = xend  # Update the rightmost end point
+
+    return min_arrows
+
+# Example 1
+points1 = [[10, 16], [2, 8], [1, 6], [7, 12]]
+print(find_min_arrows(points1))  # Output: 2
+
+# Example 2
+points2 = [[1, 2], [3, 4], [5, 6], [7, 8]]
+print(find_min_arrows(points2))  # Output: 4
+
+# Example 3
+points3 = [[1, 2], [2, 3], [3, 4], [4, 5]]
+print(find_min_arrows(points3))  # Output: 2
